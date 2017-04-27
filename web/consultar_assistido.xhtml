@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="templates/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:define name="menu"> 
+        <ui:include src="includes/menu.xhtml" />
+    </ui:define>
+
+    <ui:define name="conteudo"> 
+
+        <h:form id="form">
+        <p:dataTable var="assistido" value="#{assistidoBean.assistidos}" widgetVar="assistidosTable" 
+                     emptyMessage="Nenhum assistido encontrado." 
+                     filteredValue="#{assistidoBean.assistidosFiltrados}"
+                     rows="10"
+                     paginator="true"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15">
+
+            <f:facet name="header">
+                <p:outputPanel>
+                    <h:outputText value="Procurar: " />
+                    <p:inputText id="globalFilter" onkeyup="PF('assistidosTable').filter()" style="width:150px" placeholder="Digite aqui..."/>
+                </p:outputPanel>
+            </f:facet>
+
+            <p:column filterBy="#{assistido.id}" headerText="Id" filterMatchMode="contains">
+                <h:outputText value="#{assistido.id}" />
+            </p:column>
+
+            <p:column  filterBy="#{assistido.nome}" headerText="Nome" filterMatchMode="contains">
+                <h:outputText value="#{assistido.nome}" />
+            </p:column>
+            
+            <p:column  filterBy="#{assistido.sobrenome}" headerText="Sobrenome" filterMatchMode="contains">
+                <h:outputText value="#{assistido.sobrenome}" />
+            </p:column>
+
+            <p:column filterBy="#{assistido.cpf}" headerText="CPF" filterMatchMode="contains">
+                <h:outputText value="#{assistido.cpf}" />
+            </p:column>
+            
+            <p:column style="width:32px;text-align: center">
+             <p:commandButton update=":form:assistidoDetail" oncomplete="PF('assistidoDialog').show()" icon="ui-icon-search" title="View">
+                 <f:setPropertyActionListener value="#{assistido}" target="#{assistidoBean.selectedAssistido}" />
+            </p:commandButton>
+        </p:column>
+        </p:dataTable>
+        
+        <!-- DIALOG DE INFORMAÇÕES-->
+        <p:dialog header="Detalhes Assistido" widgetVar="assistidoDialog"  showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="assistidoDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty assistidoBean.selectedAssistido}" columnClasses="label,value">
+                 
+                <h:outputText value="Id:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.id}" />
+ 
+                <h:outputText value="Nome:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.nome}" />
+                
+                <h:outputText value="Sobrenome:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.sobrenome}" />
+                
+                <h:outputText value="Genêro:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.genero}" />
+                
+                <h:outputText value="Nascimento:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.nascimento}" />
+                
+                <h:outputText value="Naturalidade" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.naturalidade}" />
+ 
+                <h:outputText value="RG" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.rg}" />
+                
+                <h:outputText value="Orgão Emissor:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.orgaoEmissor}" />
+                
+                <h:outputText value="CPF:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.cpf}" />
+                
+                <h:outputText value="Estado Civil:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.estCivil}" />
+                
+                <h:outputText value="Profissão:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.profisao}" />
+                
+                <h:outputText value="Local de Trabalho:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.localTrabalho}" />
+                
+                <h:outputText value="Telefone:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.telefone}" />
+                
+                <h:outputText value="Celular:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.celular}" />
+                
+                <h:outputText value="Cidade:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.endereco.cidade}" />
+                
+                <h:outputText value="Estado:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.endereco.estado}" />
+                
+                <h:outputText value="Rua:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.endereco.rua}" />
+                
+                <h:outputText value="Número:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.endereco.numero}" />
+                
+                <h:outputText value="Complemento:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.endereco.complemento}" />
+                
+                <h:outputText value="Bairro:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.endereco.bairro}" />
+                
+                <h:outputText value="CEP:" />
+                <h:outputText value="#{assistidoBean.selectedAssistido.endereco.cep}" />
+ 
+               
+            </p:panelGrid>
+            
+        </p:outputPanel>
+            <p:commandButton value="Editar" update="form"   ajax="true"/>        
+            <p:commandButton value="Deletar" update="form" action="#{assistidoBean.deletarAssistido}"   ajax="true"/>
+    </p:dialog>
+            
+            
+            
+        </h:form>
+
+    </ui:define> 
+</ui:composition>

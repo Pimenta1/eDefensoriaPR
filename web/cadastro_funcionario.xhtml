@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="templates/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:define name="menu"> 
+        <ui:include src="includes/menu.xhtml" />
+    </ui:define>
+
+    <ui:define name="conteudo"> 
+         <!--<p:outputLabel value="#{assistido.msg}" id="msg1" styleClass="msg" />-->
+
+        <h:form id="formFuncionario">
+            <p:wizard nextLabel="Próximo" backLabel="Anterior" >
+
+
+                <p:tab id="personal" title="Dados Pessoais">            
+                    <p:panel id="panel" header="Cadastro Assistido" style="margin-bottom:10px;">
+                        <p:messages id="messages" />
+
+                        <!--<p:growl id="growl" showDetail="true" sticky="true" />--> 
+
+                        <h:panelGrid columns="2" cellpadding="5">
+
+                            <p:outputLabel for="name" value="Nome:" />
+                            <p:inputText id="name" required="true" maxlength="50" value="#{assistidoBean.assistido.nome}" >
+                                <f:validateLength minimum="2" />
+                            </p:inputText>
+
+                            <p:outputLabel for="sobrenome" value="Sobrenome:" />
+                            <p:inputText  id="sobrenome" required="true" maxlength="50" value="#{assistidoBean.assistido.sobrenome}" >
+                                <f:validateLength minimum="2" />
+                            </p:inputText>
+
+                            <p:outputLabel for="genero" value="Gênero:" />
+                            <p:selectOneMenu id="genero" value="#{assistidoBean.assistido.genero}" style="width:120px" required="true">
+                                <p:ajax listener="#{assistidoBean.onGeneroChange}" update="civil" />
+                                <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{assistidoBean.generos}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="nascimento" value="Nascimento:" />
+                            <p:calendar id="nascimento" required="true" value="#{assistidoBean.assistido.nascimento}" yearRange="c-100:c+0" navigator="true"  locale="pt_BR" showOn="button" pattern="dd-MM-yyyy" mask="true"  />
+
+
+
+                            <p:outputLabel  for="rg1" value="RG:" />
+                            <p:inputMask id="rg1"  mask="99.999.999-9" required="true"  value="#{assistidoBean.assistido.rg}"/>
+
+                            <p:outputLabel for="emissor" value="Orgão Emissor:" />
+                            <p:inputText id="emissor" required="true" maxlength="10" value="#{assistidoBean.assistido.orgaoEmissor}" >
+                                <f:validateLength minimum="2" />
+                            </p:inputText>
+
+                            <p:outputLabel  for="cpf" value="CPF:" />
+                            <p:inputMask id="cpf" required="true" mask="999.999.999-99" value="#{assistidoBean.assistido.cpf}"/>
+
+                            <p:outputLabel for="civil" value="Estado Civil:" />
+                            <p:selectOneMenu id="civil" value="#{assistidoBean.assistido.estCivil}" style="width:120px" required="true">
+                                <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{assistidoBean.estadosCivil}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="cargo" value="Cargo:" />
+                            <p:inputText id="cargo" maxlength="40" value="#{assistidoBean.assistido.localTrabalho}" />
+
+                            <p:outputLabel  for="telefone" value="Telefone:" />
+                            <p:inputMask id="telefone" mask="(99)9999-9999" value="#{assistidoBean.assistido.telefone}"/>
+
+                            <p:outputLabel  for="celular" value="Celular:" />
+                            <p:inputMask id="celular" mask="(99)99999-9999" value="#{assistidoBean.assistido.celular}"/>
+
+                            <p:outputLabel for="login" value="Login" />
+                            <p:inputText id="login"  required="true" maxlength="40" value="#{assistidoBean.assistido.localTrabalho}" />
+
+                            <p:outputLabel for="senha" value="Senha:" />
+                            <p:inputText id="senha"  required="true" maxlength="40" value="#{assistidoBean.assistido.localTrabalho}" />
+
+                            <p:outputLabel for="senha_conf" value="Confirmar Senha:" />
+                            <p:inputText id="senha_conf" required="true" maxlength="40" value="#{assistidoBean.assistido.localTrabalho}" />
+
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="endereco" title="Endereço">
+                    <p:panel header="Dados Endereço" style="margin-bottom:10px;">
+                        <p:messages  />
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:outputLabel for="cidade" value="Cidade:"  />
+                            <p:inputText id="cidade" value="#{assistidoBean.assistido.endereco.cidade}" required="true"/>
+
+                            <p:outputLabel for="estado" value="Estado:" />
+                            <p:inputText  id="estado" value="#{assistidoBean.assistido.endereco.estado}" required="true" maxlength="2"  />
+
+                            <p:outputLabel for="rua" value="Rua:" />
+                            <p:inputText id="rua" value="#{assistidoBean.assistido.endereco.rua}" required="true" />
+
+                            <p:outputLabel for="numero" value="Número:" />
+                            <p:inputText id="numero" value="#{assistidoBean.assistido.endereco.numero}" required="true"/>
+
+                            <h:outputLabel for="complemento" value="Complemento:" />
+                            <p:inputText id="complemento" value="#{assistidoBean.assistido.endereco.complemento}" />
+
+                            <h:outputLabel for="bairro" value="Bairro:" />
+                            <p:inputText id="bairro" value="#{assistidoBean.assistido.endereco.bairro}" required="true"/>
+
+                            <h:outputLabel for="cep" value="CEP:" />
+                            <p:inputMask id="cep" value="#{assistidoBean.assistido.endereco.cep}" mask="99999-999" required="true"/>
+                        </h:panelGrid>
+
+                        <p:commandButton value="Cadastrar" update="formFuncionario"  action="#{assistidoBean.salvarAssistido}"  ajax="true">
+                            <!--                <f:ajax render="@form" resetValues="true"/>-->
+                        </p:commandButton>
+
+                    </p:panel>
+                </p:tab>
+
+            </p:wizard>
+
+
+
+
+
+        </h:form>
+
+
+
+    </ui:define>
+</ui:composition>

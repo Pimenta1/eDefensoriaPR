@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:form>
+        <p:menu toggleable="true">
+            <p:submenu label="Principal">
+            <p:menuitem value="Início" url="index.xhtml" icon="fa fa-home" />
+            <p:menuitem value="Usuário" url="#" icon="fa fa-user"/>
+            <p:menuitem value="Configurações" url="#" icon="fa fa-gear"/>
+        </p:submenu>
+        <p:submenu label="Atendimento">
+            <p:menuitem value="Cadastrar Assistido" url="faces/cadastro_assistido.xhtml" icon="fa fa-user-plus" />
+            <p:menuitem value="Consultar Assistido" url="faces/consultar_assistido.xhtml" icon="fa fa-search"/>
+            <p:menuitem value="Criar Processo" url="faces/cadastro_processo.xhtml" icon="fa fa-user-plus" />
+            <p:menuitem value="Consultar Processo" url="faces/consultar_processo.xhtml" icon="fa fa-search"/>
+        </p:submenu>
+        <p:submenu label="Relatório">
+            <p:menuitem value="Gerar" url="faces/gerar_relatorio.xhtml" icon="fa fa-search"/>
+            <p:menuitem value="Consultar" url="faces/consultar_relatorio.xhtml" icon="fa fa-search"/>
+        </p:submenu>
+        <p:submenu label="Administração">
+            <p:menuitem value="Cadastrar Funcionário" url="faces/cadastro_funcionario.xhtml" icon="fa fa-user-plus"/>
+            <p:menuitem value="Editar Funcionário" icon="fa fa-pencil"/>
+            <p:menuitem value="Consultar Relatórios" url="faces/consultar_relatorio.xhtml" icon="fa fa-search"/>
+            <p:menuitem value="Consultar Processos" url="faces/consultar_processo.xhtml" icon="fa fa-search"/>
+        </p:submenu>
+        <p:submenu label="Ajuda">
+            <p:menuitem value="Tutoriais" icon="fa fa-lightbulb-o"/>
+            <p:menuitem value="Contato" icon="fa fa-list-alt"/>
+            <p:menuitem value="Telefones"  url="faces/telefones.xhtml" icon="fa fa-phone-square"/>
+        </p:submenu>
+
+    </p:menu>
+        
+    </h:form>
+
+</ui:composition>

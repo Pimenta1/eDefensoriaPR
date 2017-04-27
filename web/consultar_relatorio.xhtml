@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="templates/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:define name="menu"> 
+        <ui:include src="includes/menu.xhtml" />
+    </ui:define>
+
+    <ui:define name="conteudo"> 
+
+        <h:form id="form">
+        <p:dataTable var="assistido" value="#{assistidoBean.assistidos}" widgetVar="assistidosTable" 
+                     emptyMessage="Nenhum assistido encontrado." 
+                     filteredValue="#{assistidoBean.assistidosFiltrados}"
+                     rows="10"
+                     paginator="true"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15">
+
+            <f:facet name="header">
+                <p:outputPanel>
+                    <h:outputText value="Procurar: " />
+                    <p:inputText id="globalFilter" onkeyup="PF('assistidosTable').filter()" style="width:150px" placeholder="Digite aqui..."/>
+                </p:outputPanel>
+                
+            </f:facet>
+
+            <p:column filterBy="#{assistido.id}" headerText="Id" filterMatchMode="contains">
+                <h:outputText value="#{assistido.id}" />
+            </p:column>
+
+            <p:column  filterBy="#{assistido.nome}" headerText="Nome" filterMatchMode="contains">
+                <h:outputText value="#{assistido.nome}" />
+            </p:column>
+            
+            
+            <p:column  filterBy="#{assistido.nome}" headerText="Descrição" filterMatchMode="contains">
+                <h:outputText value="#{assistido.nome}" />
+            </p:column>
+            
+            
+            <p:column  filterBy="#{assistido.nome}" headerText="Data" filterMatchMode="contains">
+                <h:outputText value="#{assistido.nome}" />
+            </p:column>
+                      
+            <p:column style="width:32px;text-align: center">
+             <p:commandButton update=":form:assistidoDetail" oncomplete="PF('assistidoDialog').show()" icon="ui-icon-search" title="View">
+                 <f:setPropertyActionListener value="#{assistido}" target="#{assistidoBean.selectedAssistido}" />
+            </p:commandButton>
+        </p:column>
+        </p:dataTable>
+            
+      <h3>Clique aqui para exportar</h3>
+    <h:commandLink>
+        <p:graphicImage name="resources/imgs/xls.JPG"  />
+        
+        <p:dataExporter type="xls" target="tbl" fileName="cars" pageOnly="true"/>
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/demo/images/pdf.png" />
+        <p:dataExporter type="pdf" target="tbl" fileName="cars" pageOnly="true" />
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/demo/images/csv.png" />
+        <p:dataExporter type="csv" target="tbl" fileName="cars" pageOnly="true" />
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/demo/images/xml.png" />
+        <p:dataExporter type="xml" target="tbl" fileName="cars" pageOnly="true" />
+    </h:commandLink>
+</h:form>
+
+    </ui:define> 
+</ui:composition>
